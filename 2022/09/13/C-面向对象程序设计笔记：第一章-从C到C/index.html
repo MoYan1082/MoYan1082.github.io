@@ -151,6 +151,8 @@
     <div class="content" v-pre>
         <h1 id="C-面向对象程序设计笔记：第一章-从C到C"><a href="#C-面向对象程序设计笔记：第一章-从C到C" class="headerlink" title="C++面向对象程序设计笔记：第一章 从C到C++"></a>C++面向对象程序设计笔记：第一章 从C到C++</h1><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>定义引用时一定要将其初始化成引用某个变量。<br><strong>初始化后，它就一直引用该变量，不会再引用别的变量了</strong>。</p>
 <p>引用可以作为函数的返回值。</p>
+<span id="more"></span>
+
 <pre><code class="cpp">int n = 4;
 int&amp; SetValue() &#123; return n; &#125;
 int main() &#123;
@@ -227,7 +229,89 @@ func(10, 8);// 等效于func(10, 8, 3)
 func(10, ,8); // 编译错误，只能最右边的连续若干个参数缺省
 </code></pre>
 <p>函数参数可缺省的目的在于提高程序的可扩充性。<br>即如果某个写好的函数要添加新的参数，而原先那些调用该函数的语句，未必需要使用新增的参数，那么为了避免对原先那些函数调用语句的修改，就可以使用缺省参数。</p>
-<h3 id><a href="#" class="headerlink" title></a></h3>
+<h1 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h1><h2 id="001-简单的swap"><a href="#001-简单的swap" class="headerlink" title="001:简单的swap"></a>001:简单的swap</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+class A
+&#123;
+    public:
+    int x;
+    int getX() &#123; return x; &#125;    
+&#125;;
+void swap(
+A&amp; a, A&amp; b
+)
+&#123;
+    int  tmp = a.x;
+    a.x = b.x;
+    b.x = tmp;
+&#125;
+int main()
+&#123;
+    A a,b;
+    a.x = 3;
+    b.x = 5;
+    swap(a,b);
+    cout &lt;&lt; a.getX() &lt;&lt; &quot;,&quot; &lt;&lt; b.getX();
+    return 0;
+&#125;
+</code></pre>
+<h2 id="002-难一点的swap"><a href="#002-难一点的swap" class="headerlink" title="002:难一点的swap"></a>002:难一点的swap</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void swap(
+int*&amp; a, int*&amp; b
+)
+&#123;
+    int * tmp = a;
+    a = b;
+    b = tmp;
+&#125;
+int main()
+&#123;
+    int a = 3,b = 5;
+    int * pa = &amp; a;
+    int * pb = &amp; b;
+    swap(pa,pb);
+    cout &lt;&lt; *pa &lt;&lt; &quot;,&quot; &lt;&lt; * pb;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="003-好怪异的返回值"><a href="#003-好怪异的返回值" class="headerlink" title="003:好怪异的返回值"></a>003:好怪异的返回值</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+int&amp; 
+getElement(int * a, int i)
+&#123;
+    return a[i];
+&#125;
+int main()
+&#123;
+    int a[] = &#123;1,2,3&#125;;
+    getElement(a,1) = 10;
+    cout &lt;&lt; a[1] ;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="004-神秘的数组初始化"><a href="#004-神秘的数组初始化" class="headerlink" title="004:神秘的数组初始化"></a>004:神秘的数组初始化</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+&#123;
+    int * a[] = &#123;
+NULL,
+new int, 
+new int,
+new int[6]&#123;1, 1, 1, 1, 1, 1&#125;
+&#125;;
+    
+    *a[2] = 123;
+    a[3][5] = 456;
+    if(! a[0] ) &#123;
+        cout &lt;&lt; * a[2] &lt;&lt; &quot;,&quot; &lt;&lt; a[3][5];
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
     </div>
     
 </div>

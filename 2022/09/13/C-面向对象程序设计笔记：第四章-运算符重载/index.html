@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>C++面向对象程序设计笔记：第四章 运算符重载 | Moyan&#39;s Blog</title>
+        <meta name="author" content="moyan">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="icon" href="https://s2.loli.net/2022/09/13/FGDkcUIvRxLbO5a.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Moyan's blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Moyan's blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>C++面向对象程序设计笔记：第四章 运算符重载 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/13
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/C-入门/" style="color: #03a9f4">
+                    C++入门
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="C-面向对象程序设计笔记：第四章-运算符重载"><a href="#C-面向对象程序设计笔记：第四章-运算符重载" class="headerlink" title="C++面向对象程序设计笔记：第四章 运算符重载"></a>C++面向对象程序设计笔记：第四章 运算符重载</h1><p>重载为成员函数时，参数个数为运算符目数减一。<br>重载为普通函数时，参数个数为运算符目数。</p>
+<span id="more"></span>
+
+<pre><code class="cpp">class Complex &#123;
+public:
+    double real, imag;
+    Complex(double r = 0.0, double i = 0.0) : read(r), imag(i)&#123; &#125;
+    Complex operator-(const Complex&amp; c);
+&#125;;
+Complex operator+(const Complex&amp; a, const Complex&amp; b) &#123; // 普通函数
+    return Complex(a.real + b.real, a.imag + b.imag);
+&#125;
+Complex Complex::operator-(const Complex&amp; c) &#123;          // 成员函数
+    return Complex(real - c.real, imag - c.imag);
+&#125;
+/*
+c = a + b; // 等价于c = operator+(a, b);
+c = a - b; // 等价于c = a.operator(b);
+*/
+</code></pre>
+<h2 id="赋值运算符重载"><a href="#赋值运算符重载" class="headerlink" title="赋值运算符重载"></a>赋值运算符重载</h2><p>只能重载为成员函数。</p>
+<pre><code class="cpp">class String &#123;
+private:
+    char* str;
+public:
+    String ():str(new char[1]) &#123;str[0] = 0;&#125;
+    ~String() &#123;delete[] str&#125;;
+    const char* c_str() &#123;return str;&#125;
+    String&amp; operator=(const char* s);
+&#125;;
+String&amp; String::operator=(const char* s) &#123;
+    delete[] str;
+    str = new char[strlen(s) + 1]; // +1为了放下/0
+    strcpy(str, s);
+    return *this;
+&#125;
+int main() &#123;
+    String s;
+    s = &quot;Good Luck,&quot;;   // 等价于s.operator=(&quot;Good Luck,&quot;);
+    // String s2 = &quot;hello!&quot;; // 出错,会执行构造函数,而不是赋值
+    return 0;
+&#125;
+</code></pre>
+<h2 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h2><pre><code class="cpp">class String;
+int main() &#123;
+    String S1, S2;
+    S1 = &quot;this&quot;;
+    S2 = &quot;that&quot;;
+    S1 = S2; // S1.str指针指向S2.str指向的位置
+    return 0;
+&#125;
+</code></pre>
+<p>如果不定义自己的赋值运算符，那么S1=S2实际上导致S1.str和S2.str指向同一个位置。<br>如果S1对象消亡，析构函数将释放S1.str指向的空间，则S2消亡时还要再释放一次，会出错。<br>另外，如果执行S1=”other”;会到导致S2.str指向的地方被delete掉。</p>
+<p>因此，需要在class String里面添加成员函数</p>
+<pre><code class="cpp">String&amp; operator=(const String&amp; s) &#123;
+    delete[] str;
+    str = new char[strlen(s.str) + 1];
+    strcpy(str, s.str);
+    return *this.
+&#125;
+</code></pre>
+<p>如果执行s = s;会出错,需要做出修改。</p>
+<pre><code class="cpp">String&amp; operator=(const String&amp; s) &#123;
+    if(this == &amp;s) 
+        return *this;
+    delete[] str;
+    str = new char[strlen(s.str) + 1];
+    strcpy(str, s.str);
+    return *this.
+&#125;
+</code></pre>
+<p>为什么”operator=”返回值的类型是”String&amp;”？</p>
+<p>为了保留运算符原有的特性不变。<br>例如：<br>a=b=c; 其中(b=c)的返回值是b，相当于b=c;a=b;。<br>(a=b)=c; 相当于a=b;a=c;</p>
+<p>为String类编写复制构造函数的时候，会面临和 = 同样的问题，用同样的方法处理。</p>
+<pre><code class="cpp">String(String&amp; s) &#123;
+    str = new char[strlen(s.str) + 1];
+    strcpy(str, s.str);
+&#125;
+</code></pre>
+<h2 id="运算符重载为友元函数"><a href="#运算符重载为友元函数" class="headerlink" title="运算符重载为友元函数"></a>运算符重载为友元函数</h2><p>使用情况：<br>一般情况下，将运算符重载为类的成员函数，是较好的选择；<br>但是当重载为成员函数不能满足使用要求，重载为普通函数又不能访问类的私有对象，就需要将运算符重载为友元。</p>
+<pre><code class="cpp">class Complex &#123;
+    double real, imag;
+public:
+    Complex(double r, double imag):real(r), iamg(i)&#123; &#125;
+    Complex operator+(double r);
+&#125;;
+Complex Complex::operator+(double r) &#123;
+    return Complex(real + r, imag);
+&#125;
+int main()&#123;
+    Complex c;
+    c = c + 5;
+    c = 5 + c; // 编译错误
+    return 0;
+&#125;
+</code></pre>
+<p>需要对上面代码做出修改：</p>
+<pre><code class="cpp">class Complex &#123;
+    // ...
+public:
+    friend Complex operator+(double r, const Complex&amp; c);
+&#125;
+Complex operator+(double r, const Complex&amp; c) &#123;
+    return Complex(c.real + r, c.imag);
+&#125;
+</code></pre>
+<h2 id="流插入运算符的重载"><a href="#流插入运算符的重载" class="headerlink" title="流插入运算符的重载"></a>流插入运算符的重载</h2><p>流插入运算符其实是将”左移/右移”操作进行了重载。</p>
+<p>cout是在iostream中定义的，ostream类的对象。<br>“&lt;&lt;”能用在cout上是因为iostream里对”&lt;&lt;”进行了重载。</p>
+<p>实现cout&lt;&lt;5; 等价于cout.operator&lt;&lt;(5);</p>
+<pre><code class="cpp">void ostream::operator&lt;&lt;(int n) &#123;
+    .. // 输出n的代码
+    return;
+&#125;
+</code></pre>
+<p>实现cout&lt;&lt;5&lt;&lt;”this”; 等价于cout.operator&lt;&lt;(5).operator&lt;&lt;(“this”);</p>
+<pre><code class="cpp">ostream&amp; ostream::operator&lt;&lt;(int n) &#123;
+    ... // 输出n的代码
+    return *this;
+&#125;
+ostream&amp; ostream::operator&lt;&lt;(char* s) &#123;
+    ... // 输出s的代码
+    return *this;
+&#125;
+</code></pre>
+<p>不能为ostream添加成员函数，可以重载为全局函数。</p>
+<pre><code class="cpp">ostream&amp; operator&lt;&lt;(ostream&amp; o, const CStudent&amp; s) &#123;
+    o &lt;&lt; s.nAge;
+    return o;
+&#125;
+</code></pre>
+<h3 id="重载类型转换运算符"><a href="#重载类型转换运算符" class="headerlink" title="重载类型转换运算符"></a>重载类型转换运算符</h3><pre><code class="cpp">class Compelx &#123;
+    double real, iamg;
+public:
+    Complex(double r=0,double i=0):real(r), imag(i) &#123; &#125;
+    operator double() &#123;return real; &#125;
+    // 重载强制类型转换运算符 double
+&#125;;
+int main() &#123;
+    Complex c(1.2, 3.4);
+    cout &lt;&lt; (double)c &lt;&lt; &quot;\n&quot;; // 输出1.2(显式转换)
+    double n = 2 + c; // 等价于double n = 2 + c.operator double();(隐式转换)
+    cout &lt;&lt; n;
+&#125;
+</code></pre>
+<h2 id="自增、自减运算符"><a href="#自增、自减运算符" class="headerlink" title="自增、自减运算符"></a>自增、自减运算符</h2><p>自增运算符++、自减运算符–有前置和后置之分，为了区分所重载的是前置运算符还是后置运算符，C++规定：</p>
+<ul>
+<li><p>前置运算符作为一元运算符重载：<br>重载为成员函数：<br>T&amp; operator++();<br>T&amp; operator–();<br>重载为全局函数：<br>T1&amp; operator++(T2);<br>T1&amp; operator–(T2);</p>
+</li>
+<li><p><strong>后置运算符</strong>作为二元运算符重载，多写一个没用的参数：<br>重载为成员函数：<br>T&amp; operator++(int);<br>T&amp; operator–(int);<br>重载为全局函数：<br>T1&amp; operator++(T2, int);<br>T1&amp; operator–(T2, int);</p>
+</li>
+</ul>
+<p>注：在没有后置运算符重载而有前置重载的情况下，在vs中obj++也调用前置重载，而dev中会报错。</p>
+<p>注：(a++)=1;不会使得a=1，因为(a++)返回的是一个临时的对象，而不是a的引用。<br>这就是为什么(++i)比(i++)快！</p>
+<p>注意事项：</p>
+<ul>
+<li>运算符重载不改变运算符的优先级。</li>
+<li>“.”， “.*”， “::”， “?:”， “sizeof”不允许被重载。</li>
+<li>重载运算符()、[]、-&gt;或者赋值运算符=时，运算符重载必须声明为类的成员函数。</li>
+</ul>
+<h1 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h1><h2 id="014-MyString"><a href="#014-MyString" class="headerlink" title="014:MyString"></a>014:MyString</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cstring&gt;
+using namespace std;
+class MyString &#123;
+    char * p;
+public:
+    MyString(const char * s) &#123;
+        if( s) &#123;
+            p = new char[strlen(s) + 1];
+            strcpy(p,s);
+        &#125;
+        else
+            p = NULL;
+
+    &#125;
+    ~MyString() &#123; if(p) delete [] p; &#125;
+void Copy(char* s) &#123;
+        if(p) delete[] p;
+        if( s) &#123;
+            p = new char[strlen(s) + 1];
+            strcpy(p,s);
+        &#125;
+        else
+            p = NULL;
+    &#125;
+    friend ostream&amp; operator&lt;&lt; (ostream &amp;o, const MyString&amp; s) &#123;
+        if(s.p)
+            o &lt;&lt; s.p;
+        return o;
+    &#125;
+    MyString&amp; operator=(const char* s) &#123;
+        if(p) delete[] p;
+        if( s) &#123;
+            p = new char[strlen(s) + 1];
+            strcpy(p,s);
+        &#125;
+        else
+            p = NULL;
+        return *this;
+    &#125;
+    MyString&amp; operator= (const MyString&amp; str) &#123;
+        if(p) delete[] p;
+        char* s = str.p;
+        if( s) &#123;
+            p = new char[strlen(s) + 1];
+            strcpy(p,s);
+        &#125;
+        else
+            p = NULL;
+        return *this;
+    &#125;
+    MyString (const MyString&amp; str) &#123;
+        if(p) delete[] p;
+        char* s = str.p;
+        if( s) &#123;
+            p = new char[strlen(s) + 1];
+            strcpy(p,s);
+        &#125;
+        else
+            p = NULL;
+    &#125;
+&#125;;
+int main()
+&#123;
+    char w1[200],w2[100];
+    while( cin &gt;&gt; w1 &gt;&gt; w2) &#123;
+        MyString s1(w1),s2 = s1;
+        MyString s3(NULL);
+        s3.Copy(w1);
+        cout &lt;&lt; s1 &lt;&lt; &quot;,&quot; &lt;&lt; s2 &lt;&lt; &quot;,&quot; &lt;&lt; s3 &lt;&lt; endl;
+
+        s2 = w2;
+        s3 = s2;
+        s1 = s3;
+        cout &lt;&lt; s1 &lt;&lt; &quot;,&quot; &lt;&lt; s2 &lt;&lt; &quot;,&quot; &lt;&lt; s3 &lt;&lt; endl;
+        
+    &#125;
+&#125;
+</code></pre>
+<h2 id="015-看上去好坑的运算符重载"><a href="#015-看上去好坑的运算符重载" class="headerlink" title="015:看上去好坑的运算符重载"></a>015:看上去好坑的运算符重载</h2><pre><code class="cpp">#include &lt;iostream&gt; 
+using namespace std;
+class MyInt 
+&#123; 
+    int nVal; 
+    public: 
+    MyInt( int n) &#123; nVal = n ;&#125;
+MyInt&amp; operator-(int n) &#123;
+        nVal -= n;
+        return *this;
+    &#125;
+    friend int Inc(MyInt&amp; i) &#123;
+        return i.nVal + 1;
+    &#125;
+&#125;; 
+int Inc(int n) &#123;
+    return n + 1;
+&#125;
+int main () &#123; 
+    int n;
+    while(cin &gt;&gt;n) &#123;
+        MyInt objInt(n); 
+        objInt-2-1-3; 
+        cout &lt;&lt; Inc(objInt);
+        cout &lt;&lt;&quot;,&quot;; 
+        objInt-2-1; 
+        cout &lt;&lt; Inc(objInt) &lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="016-惊呆！Point竟然能这样输入输出"><a href="#016-惊呆！Point竟然能这样输入输出" class="headerlink" title="016:惊呆！Point竟然能这样输入输出"></a>016:惊呆！Point竟然能这样输入输出</h2><pre><code class="cpp">#include &lt;iostream&gt; 
+using namespace std;
+class Point &#123; 
+    private: 
+        int x; 
+        int y; 
+    public: 
+        Point() &#123; &#125;;
+friend istream&amp; operator&gt;&gt;(istream&amp; in, Point&amp; p) &#123;
+        in &gt;&gt; p.x &gt;&gt; p.y;
+        return in;
+    &#125;
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, Point&amp; p) &#123;
+        out &lt;&lt; p.x &lt;&lt; &quot;,&quot; &lt;&lt; p.y;
+        return out;
+    &#125;
+&#125;; 
+int main() 
+&#123; 
+     Point p;
+     while(cin &gt;&gt; p) &#123;
+         cout &lt;&lt; p &lt;&lt; endl;
+     &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="017-二维数组类"><a href="#017-二维数组类" class="headerlink" title="017:二维数组类"></a>017:二维数组类</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+class Array2 &#123;
+    int** nums;
+public:
+    Array2():nums(NULL) &#123; &#125;
+    Array2(const int n, const int m) &#123;
+        nums = new int*[n];
+        for(int i = 0; i &lt; n; i++) 
+            nums[i] = new int[m];
+    &#125;
+    int&amp; operator ()(int i, int j) &#123;
+        return nums[i][j];
+    &#125;
+    int* operator [](int pos) &#123;
+        return nums[pos];
+    &#125;
+&#125;;
+
+int main() &#123;
+    Array2 a(3,4);
+    int i,j;
+    for(  i = 0;i &lt; 3; ++i )
+        for(  j = 0; j &lt; 4; j ++ )
+            a[i][j] = i * 4 + j;
+    for(  i = 0;i &lt; 3; ++i ) &#123;
+        for(  j = 0; j &lt; 4; j ++ ) &#123;
+            cout &lt;&lt; a(i,j) &lt;&lt; &quot;,&quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+    cout &lt;&lt; &quot;next&quot; &lt;&lt; endl;
+    Array2 b;     b = a;
+    for(  i = 0;i &lt; 3; ++i ) &#123;
+        for(  j = 0; j &lt; 4; j ++ ) &#123;
+            cout &lt;&lt; b[i][j] &lt;&lt; &quot;,&quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="018-别叫，这个大整数已经很简化了"><a href="#018-别叫，这个大整数已经很简化了" class="headerlink" title="018:别叫，这个大整数已经很简化了!"></a>018:别叫，这个大整数已经很简化了!</h2><pre><code class="cpp">#include &lt;iostream&gt; 
+#include &lt;cstring&gt; 
+#include &lt;cstdlib&gt; 
+#include &lt;cstdio&gt; 
+using namespace std;
+const int MAX = 110; 
+class CHugeInt &#123;
+int num[210];
+public:
+    CHugeInt(char* s) &#123;
+        memset(num, 0, sizeof num);
+        int n = strlen(s);
+        for(int i = 0; i &lt; n; i++) &#123;
+            num[n - i - 1] = s[i] - &#39;0&#39;;
+        &#125;
+    &#125;
+    CHugeInt(int s_int) &#123;
+        memset(num, 0, sizeof num);
+        string s = to_string(s_int);
+        int n = s.length();
+        for(int i = 0; i &lt; n; i++) &#123;
+            num[n - i - 1] = s[i] - &#39;0&#39;;
+        &#125;
+    &#125;
+    CHugeInt(const CHugeInt&amp; a) &#123;
+        for(int i = 0; i &lt; 210; i++) 
+            num[i] = a.num[i];
+    &#125;
+    CHugeInt operator+(const CHugeInt&amp; a) &#123;
+        CHugeInt b(0);
+        int tmp = 0;
+        for(int i = 0; i &lt; 210; i++) &#123;
+            int cur = num[i] + a.num[i] + tmp;
+            b.num[i] = cur % 10;
+            tmp = cur / 10;
+        &#125;
+        return b;
+    &#125;
+    CHugeInt&amp; operator++() &#123;
+        CHugeInt a(1);
+        int tmp = 0;
+        for(int i = 0; i &lt; 210; i++) &#123;
+            int cur = num[i] + a.num[i] + tmp;
+            num[i] = cur % 10;
+            tmp = cur / 10;
+        &#125;
+        return *this;
+    &#125;
+    CHugeInt operator++(int) &#123;
+        CHugeInt res(*this);
+        CHugeInt a(1);
+        int tmp = 0;
+        for(int i = 0; i &lt; 210; i++) &#123;
+            int cur = num[i] + a.num[i] + tmp;
+            num[i] = cur % 10;
+            tmp = cur / 10;
+        &#125;
+        return res;
+    &#125;
+    friend CHugeInt&amp; operator+=(CHugeInt&amp; a, int b_int) &#123;
+        CHugeInt b(b_int);
+        a = a + b;
+        return a;
+    &#125;
+    friend CHugeInt operator+(CHugeInt&amp; a, int b_int) &#123;
+        CHugeInt b(b_int);
+        b = a + b;
+        return b;
+    &#125;
+    friend CHugeInt operator+(int b_int, CHugeInt&amp; a) &#123;
+        CHugeInt b(b_int);
+        b = a + b;
+        return b;
+    &#125;
+    friend ostream&amp; operator&lt;&lt;(ostream&amp; out, CHugeInt a) &#123;
+        int len = 209;
+        while(len &gt; 0 &amp;&amp; a.num[len] == 0) &#123;
+            if(a.num[len] != 0) break;
+            len--;
+        &#125;
+        len++;
+        for(int i = 0; i &lt; len; i++) &#123;
+            out &lt;&lt; a.num[len - 1 - i];
+        &#125;
+        return out;
+    &#125;
+&#125;;
+int  main() 
+&#123; 
+    char s[210];
+    int n;
+
+    while (cin &gt;&gt; s &gt;&gt; n) &#123;
+        CHugeInt a(s);
+        CHugeInt b(n);
+
+        cout &lt;&lt; a + b &lt;&lt; endl;
+        cout &lt;&lt; n + a &lt;&lt; endl;
+        cout &lt;&lt; a + n &lt;&lt; endl;
+        b += n;
+        cout  &lt;&lt; ++ b &lt;&lt; endl;
+        cout &lt;&lt; b++ &lt;&lt; endl;
+        cout &lt;&lt; b &lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 20xx - 2022 Moyan&#39;s blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @moyan
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>

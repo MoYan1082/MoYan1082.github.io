@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>C++面向对象程序设计笔记：第三章 类和对象提高 | Moyan&#39;s Blog</title>
+        <meta name="author" content="moyan">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="icon" href="https://s2.loli.net/2022/09/13/FGDkcUIvRxLbO5a.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Moyan's blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Moyan's blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>C++面向对象程序设计笔记：第三章 类和对象提高 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/13
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/C-入门/" style="color: #ff7d73">
+                    C++入门
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="C-面向对象程序设计笔记：第三章-类和对象提高"><a href="#C-面向对象程序设计笔记：第三章-类和对象提高" class="headerlink" title="C++面向对象程序设计笔记：第三章 类和对象提高"></a>C++面向对象程序设计笔记：第三章 类和对象提高</h1><h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>易错点:</p>
+<pre><code class="cpp">class A &#123;
+    int i;
+public:
+    void Hello() &#123;cout &lt;&lt; &quot;hello\n&quot;; &#125;
+&#125;;
+int main() &#123;
+    A* p = NULL;
+    p-&gt;Hello(); // 不会出错
+    // 输出：hello
+&#125;
+</code></pre>
+<span id="more"></span>
+
+<p>因为C++在运行之前会转变为C，而成员函数Hello()变为</p>
+<pre><code class="cpp">void Hello(A* this) &#123;cout &lt;&lt; &quot;hello\n&quot;; &#125;
+</code></pre>
+<p>如果将友元函数变为以下函数，程序就会出错。</p>
+<pre><code class="cpp">void Hello() &#123;cout &lt;&lt; i &lt;&lt; &quot;hello\n&quot;; &#125;
+</code></pre>
+<p>静态成员函数中不能使用this指针。<br>因为静态成员函数并不具体作用于某个对象，因此静态成员函数的真实的参数个数，就是程序中写出的参数个数。其他成员函数的参数中会多出一个this。</p>
+<h2 id="静态成员变量"><a href="#静态成员变量" class="headerlink" title="静态成员变量"></a>静态成员变量</h2><p>普通成员变量每个对象各有一份，而静态成员变量一共只有一份，为所有对象共享。<br>普通成员函数必须具体作用于某个对象，而静态成员函数并不具体作用于某个对象。<br>因此静态成员不需要通过对象就能访问。</p>
+<p>sizeof 运算符不会计算静态成员变量。</p>
+<pre><code class="cpp">class CMyclass &#123;
+    int n;
+    static int s;
+&#125;
+sizeof(CMyclass); // 4
+</code></pre>
+<p>访问静态成员：</p>
+<ol>
+<li>类名::成员名</li>
+<li>对象名.成员名</li>
+<li>指针-&gt;成员名</li>
+<li>引用.成员名</li>
+</ol>
+<p>静态成员变量本质上是全局变量，哪怕一个对象都不存在，类的静态成员变量也存在。<br><strong>静态成员函数本质上是全局函数</strong>。</p>
+<p>必须在定义类的文件中对静态成员变量进行一次说明或初始化。<br>否则编译能通过，链接不能通过。</p>
+<p>在静态成员函数中，不能访问非静态成员变量，也不能调用非静态成员函数。</p>
+<p>Demo:</p>
+<pre><code class="cpp">class CRectangle &#123;
+private:
+    int w, h;
+    static int nTotalArea;
+    static int nTotalNumber;
+public:
+    CRectangle(int w_, int h_);
+    ~CRectangle();
+    static void PrintTotal();
+&#125;
+CRectangle::CRectangle(int w_, int h_) &#123;
+    w = w_;
+    h = h_;
+    nTotalNumber++;
+    nTotalArea += w * h;
+&#125;
+CRectangle::~CRectangle() &#123;
+    nTotalNumber--;
+    nTotalArea -= w * h;
+&#125;
+void CRectangle::PrintTotal() &#123;
+    cout &lt;&lt; nTotalNumber &lt;&lt; &quot;,&quot; &lt;&lt; nTotalArea &lt;&lt; &quot;\n&quot;;
+&#125;
+</code></pre>
+<p>上述Demo存在一个问题：<br>在使用CRectangle类时，有时会调用复制构造函数生成<strong>临时的隐藏的CRectangle对象</strong></p>
+<ul>
+<li>调用一个以CRectangle类对象作为参数的函数时</li>
+<li>调用一个以CRectangle类对象作为返回值的函数时</li>
+</ul>
+<p>临时对象在消亡时会调用析构函数，较少nTotalNumber和nTotalArea的值，可是这些临时对象在生成时却没有增加nTotalNumber和nTotalArea的值。</p>
+<p>解决办法：为CRectangle类写一个复制构造函数。</p>
+<pre><code class="cpp">CRectangle::CRectangle(CRectangle&amp; c) &#123;
+    w = r.w; h = r.h;
+    nTotalNumber++;
+    nTotalArea += w * h;
+&#125;
+</code></pre>
+<h2 id="成员函数和封闭类"><a href="#成员函数和封闭类" class="headerlink" title="成员函数和封闭类"></a>成员函数和封闭类</h2><ul>
+<li>封闭类对象生成时，先执行所有<strong>对象成员的构造函数</strong>，然后才执行封闭类的构造函数。</li>
+<li>对象成员的构造函数调用次序和对象成员在类中的<strong>说明次序一致</strong>，与它们在成员初始化列表中出现的次序无关。</li>
+<li>当封闭类的对象消亡时，先执行<strong>封闭类的析构函数</strong>，然后再执行成员对象的析构函数。次序和构造函数的调用次序相反。</li>
+</ul>
+<p>任何生成封闭类对象的语句，都要让编译器明白，对象中的成员对象，是如何初始的：通过<strong>封闭类的初始化列表</strong>。</p>
+<h2 id="常量对象"><a href="#常量对象" class="headerlink" title="常量对象"></a>常量对象</h2><p>如果不希望某个对象的值被改变，则定义该对象的时候可以在前面加const关键字。</p>
+<h2 id="常量成员函数"><a href="#常量成员函数" class="headerlink" title="常量成员函数"></a>常量成员函数</h2><p>在类的成员函数说明后面可以加const关键字，则该成员函数称为常量成员函数。<br>常量成员函数执行期间不应修改其所作用的对象。<br>因此，在常量成员函数中不能修改成员变量的值(静态成员变量除外)，也不能调用同类的非常量成员函数(静态成员函数除外)。</p>
+<pre><code class="cpp">class Sample &#123;
+public:
+    int value;
+    void GetValue() const;
+    void func() &#123;&#125;
+    Sample() &#123;&#125;
+&#125;;
+void Sample::GetValue() const &#123;
+    value = 0; // wrong，不能修改成员变量的值
+    func();    // wrong，不能调用同类的非常量成员函数
+&#125;
+int main() &#123;
+    const Sample o;
+    o.value = 100;  // err，常量对象不可被修改
+    o.func();       // err，常量对象上面不能执行非常量成员函数
+    o.GetValue();   // ok，常量对象上可以执行常量成员函数
+    return 0;
+&#125;
+</code></pre>
+<p><strong>两个成员函数，名字和参数表都一样，但是一个是const，一个不是，算重载</strong>。</p>
+<pre><code class="cpp">class CTest &#123;
+private:
+    int n;
+public:
+    CTest() &#123;n = 1;&#125;
+    int GetValue() const &#123; return n;&#125;
+    int GetValue() &#123; return n;&#125;
+&#125;;
+int main() &#123;
+    const CTest objTest1;
+    CTest objTest2;
+    cout &lt;&lt; objTest1.GetValue() &lt;&lt; &quot;,&quot; &lt;&lt; objTest2.GetValue();
+    return 0;
+&#125;
+</code></pre>
+<h2 id="常引用"><a href="#常引用" class="headerlink" title="常引用"></a>常引用</h2><p>引用前面可以加const，成为常引用。<br>不能通过常引用修改其引用的值。</p>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><ol>
+<li><p>友元函数：一个类的友元函数可以访问该类的私有成员</p>
+<pre><code class="cpp">class CCar;
+class CDriver &#123;
+public:
+ void ModifyCar(CCar* pCar);
+&#125;;
+class CCar &#123;
+private:
+ int price;
+ friend int MostExpensiveCar(CCar* pCar);    // 声明友元
+ friend void CDrive::ModifyCar(CCar* pCar);  // 声明友元
+&#125;
+void CDrive::ModifyCar(CCar* pCar) &#123;
+ pCar-&gt;price += 100;
+&#125;
+int MostExpensiveCar(CCar* pCar) &#123;
+ cout &lt;&lt; pCar-&gt;price &lt;&lt; &quot;\n&quot;;
+&#125;
+</code></pre>
+</li>
+<li><p>友元类：如果A是B的友元类，那么A的成员函数可以访问B的私有成员</p>
+<pre><code class="cpp">class CCar &#123;
+private:
+ int price;
+ friend class CDrive; // 声明CDriver为友元类
+&#125;;
+class CDriver &#123;
+public:
+ CCar myCar;
+ void ModifyCar() &#123;
+     myCar.price += 100;
+ &#125;
+&#125;;
+</code></pre>
+</li>
+</ol>
+<p>注意：友元类之间的关系不能传递，也不能继承。</p>
+<h1 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h1><h2 id="010-返回什么才好呢"><a href="#010-返回什么才好呢" class="headerlink" title="010:返回什么才好呢"></a>010:返回什么才好呢</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+class A &#123;
+public:
+    int val;
+
+    A(int
+x = 123) &#123;
+        val = x;
+    &#125;
+    A&amp; GetObj() &#123;
+        return *this;
+    &#125;
+&#125;;
+int main()
+&#123;
+    int m,n;
+    A a;
+    cout &lt;&lt; a.val &lt;&lt; endl;
+    while(cin &gt;&gt; m &gt;&gt; n) &#123;
+        a.GetObj() = m;
+        cout &lt;&lt; a.val &lt;&lt; endl;
+        a.GetObj() = A(n);
+        cout &lt;&lt; a.val&lt;&lt; endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="011-Big-amp-Base-封闭类问题"><a href="#011-Big-amp-Base-封闭类问题" class="headerlink" title="011:Big &amp; Base 封闭类问题"></a>011:Big &amp; Base 封闭类问题</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+class Base &#123;
+public:
+    int k;
+    Base(int n):k(n) &#123; &#125;
+&#125;;
+class Big
+&#123;
+public:
+    int v;
+    Base b;
+Big(int x):b(x) &#123;
+        v = x;
+    &#125;
+&#125;;
+int main()
+&#123;
+    int n;
+    while(cin &gt;&gt;n) &#123;
+        Big a1(n);
+        Big a2 = a1;
+        cout &lt;&lt; a1.v &lt;&lt; &quot;,&quot; &lt;&lt; a1.b.k &lt;&lt; endl;
+        cout &lt;&lt; a2.v &lt;&lt; &quot;,&quot; &lt;&lt; a2.b.k &lt;&lt; endl;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="012-这个指针哪来的"><a href="#012-这个指针哪来的" class="headerlink" title="012:这个指针哪来的"></a>012:这个指针哪来的</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct A
+&#123;
+    int v;
+    A(int vv):v(vv) &#123; &#125;
+const A* getPointer() const &#123;
+        return  this;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    const A a(10);
+    const A * p = a.getPointer();
+    cout &lt;&lt; p-&gt;v &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="013-魔兽世界之一：备战"><a href="#013-魔兽世界之一：备战" class="headerlink" title="013:魔兽世界之一：备战"></a>013:魔兽世界之一：备战</h2><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define DRAGON 0
+#define NINJA 1
+#define ICEMAN 2
+#define LION 3
+#define WOLF 4
+
+
+int ghours, ghealth;
+array&lt;int, 5&gt; gcost;
+
+const void Log(const string out) &#123;
+    cout &lt;&lt; out &lt;&lt; &quot;\n&quot;;
+&#125;
+string GetTime() &#123;
+    string res = to_string(ghours);
+    while(res.length() &lt; 3) &#123;
+        res = &quot;0&quot; + res;
+    &#125;
+    return res;
+&#125;
+string GetSoldierName(int id) &#123;
+    switch (id) &#123;
+        case 0:  return &quot;dragon&quot;;
+        case 1:  return &quot;ninja&quot;;
+        case 2:  return &quot;iceman&quot;;
+        case 3:  return &quot;lion&quot;;
+        case 4:  return &quot;wolf&quot;;
+        default: assert(false);
+    &#125;
+    return &quot;Undefine&quot;;
+&#125;
+class RedCamp &#123;
+private:
+    int health, pos, total;
+    bool isEnd;
+    const array&lt;int, 5&gt; soldier = &#123;
+        ICEMAN, LION, WOLF, NINJA, DRAGON
+    &#125;;
+    array&lt;int, 5&gt; number;
+
+public:
+    RedCamp() &#123;
+        health = ghealth;
+        pos = 0; total = 0;
+        isEnd = false;
+        for(int i = 0; i &lt; 5; i++) number[i] = 0;
+    &#125;
+    bool Active() &#123;
+        if(isEnd) return false;
+        int cnt = 0;
+        for(; cnt &lt; 5; pos = (pos + 1) % 5, cnt++) &#123;
+            if(gcost[soldier[pos]] &gt; health) continue;
+            health -= gcost[soldier[pos]];
+            number[pos]++;
+            total++;
+            Log(GetTime() + &quot; red &quot; + GetSoldierName(soldier[pos]) + &quot; &quot; +
+                to_string(total) + &quot; born with strength &quot; + 
+                to_string(gcost[soldier[pos]]) + &quot;,&quot; +
+                to_string(number[pos]) + &quot; &quot; + GetSoldierName(soldier[pos]) +
+                &quot; in red headquarter&quot;
+                );
+            pos = (pos + 1) % 5;
+            return true;
+        &#125;
+        isEnd = true;
+        Log(GetTime() + &quot; red headquarter stops making warriors&quot;);
+        return false;
+    &#125;
+&#125;;
+
+class BlueCamp &#123;
+private:
+    int health, pos, total;
+    bool isEnd;
+    const array&lt;int, 5&gt; soldier = &#123;
+        LION, DRAGON, NINJA, ICEMAN, WOLF
+    &#125;;
+    array&lt;int, 5&gt; number;
+
+public:
+    BlueCamp() &#123;
+        health = ghealth;
+        pos = 0; total = 0;
+        isEnd = false;
+        for(int i = 0; i &lt; 5; i++) number[i] = 0;
+    &#125;
+    bool Active() &#123;
+        if(isEnd) return false;
+        int cnt = 0;
+        for(; cnt &lt; 5; pos = (pos + 1) % 5, cnt++) &#123;
+            if(gcost[soldier[pos]] &gt; health) continue;
+            health -= gcost[soldier[pos]];
+            number[pos]++;
+            total++;
+            Log(GetTime() + &quot; blue &quot; + GetSoldierName(soldier[pos]) + &quot; &quot; +
+                to_string(total) + &quot; born with strength &quot; + 
+                to_string(gcost[soldier[pos]]) + &quot;,&quot; +
+                to_string(number[pos]) + &quot; &quot; + GetSoldierName(soldier[pos]) +
+                &quot; in blue headquarter&quot;
+                );
+            pos = (pos + 1) % 5;
+            return true;
+        &#125;
+        isEnd = true;
+        Log(GetTime() + &quot; blue headquarter stops making warriors&quot;);
+        return false;
+    &#125;
+&#125;;
+
+
+int main() &#123;
+    int tests;
+    cin &gt;&gt; tests;
+    for(int testCase = 1; testCase &lt;= tests; testCase++) &#123;
+        Log(&quot;Case:&quot; + to_string(testCase));
+        cin &gt;&gt; ghealth;
+        for(int i = 0; i &lt; 5; i++) cin &gt;&gt; gcost[i];
+        RedCamp redCamp;
+        BlueCamp blueCamp;
+        for(ghours = 0; ; ghours++) &#123;
+            int flag = 0;
+            if(!redCamp.Active()) flag++;
+            if(!blueCamp.Active()) flag++;
+            if(flag &gt;= 2) break;
+        &#125;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 20xx - 2022 Moyan&#39;s blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @moyan
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>

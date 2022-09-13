@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>C++面向对象程序设计笔记：第二章 类和对象基础 | Moyan&#39;s Blog</title>
+        <meta name="author" content="moyan">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="icon" href="https://s2.loli.net/2022/09/13/FGDkcUIvRxLbO5a.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Moyan's blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Moyan's blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>C++面向对象程序设计笔记：第二章 类和对象基础 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/13
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/C-入门/" style="color: #ff7d73">
+                    C++入门
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="C-面向对象程序设计笔记：第二章-类和对象基础"><a href="#C-面向对象程序设计笔记：第二章-类和对象基础" class="headerlink" title="C++面向对象程序设计笔记：第二章 类和对象基础"></a>C++面向对象程序设计笔记：第二章 类和对象基础</h1><h2 id="类和对象的基本概念"><a href="#类和对象的基本概念" class="headerlink" title="类和对象的基本概念"></a>类和对象的基本概念</h2><p>在类的定义中，用下列访问范围关键字来说明类成员可被访问的范围：</p>
+<ul>
+<li>private: 私有成员，只能在成员函数内访问</li>
+<li>public : 公有成员，可以在任何地方访问</li>
+<li>protected: 保护成员<br>注：这三种关键字出现的次数和先后次序没有限制。</li>
+</ul>
+<p>如果某个成员前面没有上述关键字，则缺省地被认为是私有成员。</p>
+<span id="more"></span>
+
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>成员函数的一种：</p>
+<ul>
+<li>名字与类名相同，可以有参数，不能有返回值（void也不行）</li>
+<li>作用是对对象进行初始化，如给成员变量赋初值</li>
+<li>如果定义类时没写构造函数，则编译器生成一个默认的无参数的构造函数（不做任何操作）。</li>
+<li><strong>如果定义了构造函数，则编译器不生成默认的无参数的构造函数</strong></li>
+<li>对象生成时构造函数自动被调用。对象一旦生成，就再也不能在其上执行构造函数</li>
+<li>一个类可以有多个构造函数，参数个数或类型不同</li>
+</ul>
+<p>无构造函数：</p>
+<pre><code class="cpp">class Complex &#123;
+private:
+    double real, imag;
+public:
+    void Set(double r, double i);
+&#125;; // 编译器自动生成默认构造函数
+Complex c1; // 默认构造函数被调用
+Complex* pc = new Complex; // 默认构造函数被调用
+</code></pre>
+<p>有构造函数：</p>
+<pre><code class="cpp">class Complex &#123;
+private:
+    double real, imag;
+public:
+    Comple(double r, double i=0);
+&#125;;
+Complex::Complex(double r, double i) &#123;
+    read = r, imag = i;
+&#125;
+Complex c1; // 编译错误，缺少构造函数的参数
+Complex* pc = new Complex; // 编译错误，同上
+Complex c1(2); // ok
+</code></pre>
+<p>构造函数在数组中的使用：</p>
+<pre><code class="cpp">class CSample &#123;
+    int x;
+public:
+    CSample() &#123;
+        cout &lt;&lt; &quot;Constructor 1 Called&quot; &lt;&lt; endl;
+    &#125;
+    CSample(int n) &#123;
+        x = n
+        cout &lt;&lt; &quot;Constructor 2 Called&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+int main() &#123;
+    CSample array1[2]; // 无参构造Con1
+    CSample array2[2] = &#123;4, 5&#125;; // 有参构造函数Con2
+    CSample array3[2] = &#123;3&#125;; // 第一个有参Con2，第二个无参Con1
+    CSample* array4 = new CSample[2]; // 无参Con1
+    delete []array4;
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="cpp">class Test &#123;
+public:
+    Test(int n)&#123;&#125;           // (1)
+    Test(int n, int m)&#123;&#125;    // (2)
+    Test()&#123;&#125;                // (3)
+&#125;
+Test array1[3] = &#123;1, Test(1, 2)&#125;; // (1),(2),(3)
+Test array2[3] = &#123;Test(2, 3), Test(1, 2), 1&#125;; // (2),(2),(1)
+Test* pArray[3] = &#123;new Test(4), new Test(1,2)&#125;; // (1),(2),NULL
+</code></pre>
+<h2 id="复制构造函数"><a href="#复制构造函数" class="headerlink" title="复制构造函数"></a>复制构造函数</h2><p>只有一个参数，即对同类对象的引用。编译器会自动实现一个默认的。</p>
+<p>X::X(X&amp; x); X::X(const X&amp; x);</p>
+<pre><code class="cpp">class Complex &#123;
+private:
+    double real, imag;
+    /*
+    Comple(const Complex&amp; c) &#123;
+        // ...
+    &#125;
+    */
+&#125;
+Complex c1;     // 调用缺省无参构造函数
+Complex c2(c1); // **调用缺省的复制构造函数**，将c2初始化成和c1一样。
+</code></pre>
+<p>使用的三种情况：</p>
+<ol>
+<li><p>当用一个对象去初始化同类的另一个对象时</p>
+<pre><code class="cpp">Complex c2(c1);
+Complex c2 = c1; // **初始化语句**，非赋值语句
+</code></pre>
+</li>
+<li><p>如果某函数有一个参数是类A的对象，那么该函数被调用时，类A的复制构造函数被调用。</p>
+<pre><code class="cpp">void Func(A a1)&#123; &#125;
+int main() &#123;
+ A a2;
+ Func(a2); // 会调用A的复制构造函数
+ return 0;
+&#125;
+</code></pre>
+</li>
+<li><p>如果函数的返回值是类A的对象时，则函数返回时，A的复制构造函数被调用：</p>
+<pre><code class="cpp">A Func() &#123;
+ A b(4);
+ return b; // 调用复制构造函数
+&#125;
+int main() &#123;
+ cout &lt;&lt; Func().c;
+ return 0;
+&#125;
+</code></pre>
+</li>
+</ol>
+<p>void fun(CMyclass obj_) { }<br>对于这样的函数，调用时生成形参会引发复制构造函数调用，开销比较大。<br>可以考虑用CMyclass&amp; 引用类型作为参数。<br>如果希望确保实参的值在函数中不应该改变，那么可以加上const关键字。</p>
+<p>对象间的赋值并不导致复制构造函数被调用</p>
+<p>注意<strong>初始化</strong>和<strong>复制构造函数</strong>的区别！</p>
+<pre><code class="cpp">class CMyclass &#123;
+public:
+    int n;
+    CMyclass() &#123;&#125;
+    CMyclass(CMyclass&amp; c) &#123; n = 2 * c.n; &#125;
+&#125;
+int main() &#123;
+    CMyclass c1, c2;
+    c1.n = 5;
+    c2 = c1;        // 赋值，不调用
+    CMyclass c3(c1);// 初始化，调用复制构造函数
+    // c2.n == 5
+    // c3.n == 10
+&#125;
+</code></pre>
+<h2 id="类型转换构造函数"><a href="#类型转换构造函数" class="headerlink" title="类型转换构造函数"></a>类型转换构造函数</h2><p>实现类型的自动转换。<br><strong>只有一个参数，而且不是复制构造函数的构造函数</strong>，一般就可以看作是转换构造函数。<br>当需要的时候，编译系统会自动调用转换构造函数，建立一个无名的临时对象（或临时变量）。</p>
+<pre><code class="cpp">class Complex &#123;
+public:
+    double real, imag;
+    Complex(int i) &#123; // 类型转换构造函数
+        real = i; imag = 0;
+    &#125;
+    Complex(double r, double i) &#123;real = r, imag = i; &#125;
+&#125;;
+int main() &#123;
+    Complex c1(7, 8);
+    Complex c2 = 12;
+    c1 = 9; // 9被自动转换成一个临时Complex对象
+    return 0;
+&#125;
+</code></pre>
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><ul>
+<li>名字与类名相同，在前面加<code>~</code>，没有参数和返回值，一个类最多只能有一个析构函数。</li>
+<li>析构函数在对象消亡时被自动调用。可以定义析构函数来做对象消亡前的善后工作，比如释放分配的空间等。</li>
+<li>如果定义类时没写析构函数，则编译器生成缺省析构函数。缺省析构函数什么也不做。</li>
+<li>如果定义了析构函数，则编译器不生成缺省析构函数。</li>
+</ul>
+<p>对象数组生命周期结束时，对象数组的每个元素的析构函数都会被调用。</p>
+<pre><code class="cpp">CMyclass obj;
+CMyclass fun(CMyclass sobj) &#123; // 参数对象消亡也会导致析构函数被调用
+    return sobj;    // 函数调用返回时生成临时对象返回
+&#125;
+int main() &#123;
+    obj = fun(obj); // 函数调用的返回值被用过后，该临时对象析构函数被调用
+    return 0;   // 程序结束后，obj的析构函数被调用
+&#125;
+// 总共调用了3次析构函数
+</code></pre>
+<p>Demo:</p>
+<pre><code class="cpp">class Demo &#123;
+    int id;
+public:
+    Demo(int i) &#123;
+        id = i;
+        cout &lt;&lt; &quot;id=&quot; &lt;&lt; id &lt;&lt; &quot; constructed\n&quot;;
+    &#125;
+    ~Demo() &#123;
+        cout &lt;&lt; &quot;id=&quot; &lt;&lt; id &lt;&lt; &quot; constructed\n&quot;;
+    &#125;
+&#125;;
+Demo d1(1);
+void Func() &#123;
+    static Demo d2(2);
+    Demo d3(3);
+    cout &lt;&lt; &quot;func\n&quot;;
+&#125;
+int main() &#123;
+    Demo d4(4);
+    d4 = 6;
+    cout &lt;&lt; &quot;main\n&quot;;
+    &#123;
+        Demo d5(5);
+    &#125;
+    Func();
+    cout &lt;&lt; &quot;main ends\n&quot;;
+    return 0;
+&#125;
+/*
+输出：
+id=1 constructed
+id=4 constructed
+id=6 constructed
+id=6 constructed
+main
+id=5 constructed
+id=5 constructed
+id=2 constructed
+id=3 constructed
+func
+id=3 constructed
+main ends
+id=6 constructed    // d4调用析构函数
+id=2 constructed    
+id=1 constructed    // 先初始化的后析构
+*/
+</code></pre>
+<p>错题：<br>如下程序调用析构函数几次？<br>3次，p2不会消亡，因为指针只有在delete的时候才会消亡。</p>
+<pre><code class="cpp">int main() &#123;
+    A* p = new A[2];
+    A *p2 = new A;
+    A a;
+    delete[] p;
+&#125;
+</code></pre>
+<p>注：dev会出于优化目的，不生成返回值临时对象。</p>
+<h1 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h1><h2 id="005-编程填空：学生信息处理程序"><a href="#005-编程填空：学生信息处理程序" class="headerlink" title="005:编程填空：学生信息处理程序"></a>005:编程填空：学生信息处理程序</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;sstream&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+
+class Student &#123;
+private:
+char *name;
+int age, number;
+int socre1, socre2, socre3, socre4;
+float res;
+public:
+    Student() &#123;
+        name = new char[20];
+    &#125;
+    void input() &#123;
+        scanf(&quot;%[^,],%d,%d,%d,%d,%d,%d&quot;, name, &amp;age, &amp;number, &amp;socre1, &amp;socre2, &amp;socre3,&amp;socre4);
+    &#125;
+    void calculate() &#123;
+        res = 1.0 * (socre1 + socre2 + socre3 + socre4) / 4.0;
+    &#125;
+    void output() &#123;
+        if(int(res * 10) % 10 == 0) 
+            printf(&quot;%s,%d,%d,%.0f&quot;, name, age, number, res);
+        else
+            printf(&quot;%s,%d,%d,%.1f&quot;, name, age, number, res);
+    &#125;
+&#125;;
+
+int main() &#123;
+    Student student;        // 定义类的对象
+    student.input();        // 输入数据
+    student.calculate();    // 计算平均成绩
+    student.output();       // 输出数据
+&#125;
+</code></pre>
+<h2 id="006-奇怪的类复制"><a href="#006-奇怪的类复制" class="headerlink" title="006:奇怪的类复制"></a>006:奇怪的类复制</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+class Sample &#123;
+public:
+    int v;
+Sample(int v_ = 0) &#123;
+        v = v_;
+    &#125;
+    Sample(const Sample&amp; a) &#123;
+        v = a.v + 2;
+    &#125;
+    void operator=(Sample&amp; a) &#123;
+        v = 5;
+    &#125;
+&#125;;
+void PrintAndDouble(Sample o)
+&#123;
+    cout &lt;&lt; o.v;
+    cout &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    Sample a(5);
+    Sample b = a;
+    PrintAndDouble(b);
+    Sample c = 20;
+    PrintAndDouble(c);
+    Sample d;
+    d = a;
+    cout &lt;&lt; d.v;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="008-超简单的复数类"><a href="#008-超简单的复数类" class="headerlink" title="008:超简单的复数类"></a>008:超简单的复数类</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+class Complex &#123;
+private:
+    double r,i;
+public:
+    void Print() &#123;
+        cout &lt;&lt; r &lt;&lt; &quot;+&quot; &lt;&lt; i &lt;&lt; &quot;i&quot; &lt;&lt; endl;
+    &#125;
+Complex() &#123;
+        r = 0;
+        i = 0;
+    &#125;
+    Complex(char *s) &#123;
+        r = i = 0;
+        int n = strlen(s);
+        int pos;
+        for(pos = 0; pos &lt; n; pos++) &#123;
+            if(s[pos] == &#39;+&#39;) &#123;
+                break;
+            &#125;
+            r *= 10;
+            r += s[pos] - &#39;0&#39;;
+        &#125;
+        pos++;
+        for(; pos &lt; n - 1; pos++) &#123;
+            i *= 10;
+            i += s[pos] - &#39;0&#39;;
+        &#125;
+    &#125;
+&#125;;
+int main() &#123;
+    Complex a;
+    a = &quot;3+4i&quot;; a.Print();
+    a = &quot;5+6i&quot;; a.Print();
+    return 0;
+&#125;
+</code></pre>
+<h2 id="009-哪来的输出"><a href="#009-哪来的输出" class="headerlink" title="009:哪来的输出"></a>009:哪来的输出</h2><pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+class A &#123;
+    public:
+        int i;
+        A(int x) &#123; i = x; &#125;
+~A() &#123;
+        cout &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+    &#125;
+&#125;;
+int main()
+&#123;
+    A a(1);
+    A * pa = new A(2);
+    delete pa;
+    return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 20xx - 2022 Moyan&#39;s blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @moyan
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>
