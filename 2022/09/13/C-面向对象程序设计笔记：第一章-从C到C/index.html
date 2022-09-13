@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>C++面向对象程序设计笔记：第一章 从C到C++ | Moyan&#39;s Blog</title>
+        <meta name="author" content="moyan">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="icon" href="https://s2.loli.net/2022/09/13/FGDkcUIvRxLbO5a.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:50vmin;height:50vmin;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #a3ddfb;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">加载过慢请开启缓存(浏览器默认开启)</p><div><img alt="loading" src="/loading.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Moyan's blog</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Moyan's blog</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>C++面向对象程序设计笔记：第一章 从C到C++ </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/13
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/C-入门/" style="color: #00bcd4">
+                    C++入门
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="C-面向对象程序设计笔记：第一章-从C到C"><a href="#C-面向对象程序设计笔记：第一章-从C到C" class="headerlink" title="C++面向对象程序设计笔记：第一章 从C到C++"></a>C++面向对象程序设计笔记：第一章 从C到C++</h1><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>定义引用时一定要将其初始化成引用某个变量。<br><strong>初始化后，它就一直引用该变量，不会再引用别的变量了</strong>。</p>
+<p>引用可以作为函数的返回值。</p>
+<pre><code class="cpp">int n = 4;
+int&amp; SetValue() &#123; return n; &#125;
+int main() &#123;
+    SetValue() = 40;
+    cout &lt;&lt; n;
+    return 0;
+&#125;// 输出：40
+</code></pre>
+<p>在引用前加const可以变为“常引用”：<strong>不能通过常引用去修改其引用的内容</strong>。</p>
+<pre><code class="cpp">int n = 100;
+const int&amp; r = n;
+r = 200; // 编译错误
+n = 300; // ok
+</code></pre>
+<p>常引用和非常引用的转换：<br>const T&amp; 和 T&amp; 是不同的类型</p>
+<p>T&amp; 类型的引用或T类型的变量可以用来初始化const T&amp; 类型的引用。<br>const T 类型的常变量和const T&amp; 类型的引用则不能用来初始化T&amp; 类型的引用，除非进行强制类型转换。</p>
+<h3 id="const关键字"><a href="#const关键字" class="headerlink" title="const关键字"></a>const关键字</h3><p>定义常量指针：<strong>不可通过常量指针修改其指向的内容</strong>。</p>
+<pre><code class="cpp">int n, m;
+const int* p = &amp;n;
+*p = 5; // 编译出错
+n = 4;  // ok
+p = &amp;m; // ok,常量指针的指向可以变化
+</code></pre>
+<p>不能把常量指针赋值给非常量指针，反过来可以。</p>
+<pre><code class="cpp">const int* p1; int* p2;
+p1 = p2;    // ok
+p2 = p1;    // 编译出错
+p2 = (int*)p1;  // ok,强制类型转换
+</code></pre>
+<p>函数参数为常量指针时，可避免函数内部不小心改变参数指针所指地方的内容</p>
+<pre><code class="cpp">void MyPrintf(const char* p) &#123;
+    strcpy(p, &quot;this&quot;); // 编译错误
+    printf(&quot;%s&quot;, p);  // ok
+&#125;
+</code></pre>
+<h3 id="动态内存分配"><a href="#动态内存分配" class="headerlink" title="动态内存分配"></a>动态内存分配</h3><p>用法1：分配一个变量<br>P = new T;<br>T是任意类型名，P是类型为T*的指针。<br>动态分配出一片大小为sizeof(T)字节的内存空间，并且将该内存空间的起始地址赋值给P。</p>
+<pre><code class="cpp">int *pn;
+pn = new int;
+*pn = 5;
+</code></pre>
+<p>用法2：分配一个数组<br>P = new T[N];<br>T: 任意类型名<br>P: 类型为T<em>的指针<br>N: 要分配的数组元素的个数，可以使整数型表达式<br>动态分配出一片大小为N</em>sizeof(T)字节的存储空间，并且将该内存空间的起始地址赋值给P。</p>
+<pre><code class="cpp">int* pn;
+int i = 5;
+pn = new int[i * 20];
+pn[0] = 20;
+pn[100] = 30; // 编译没问题，但运行时会产生越界
+</code></pre>
+<p>用delete运算符释放动态分配的内存</p>
+<p>用new动态分配的内存空间，一定要用delete运算符进行释放</p>
+<p>delete 指针; // 该指针必须指向new出来的空间</p>
+<pre><code class="cpp">int* p = new int;
+*p = 5;
+delete p;
+delete p; // 导致异常，一片空间不能被delete两次 
+</code></pre>
+<p>用delete释放动态分配的数组时，要加”[]”<br>delete[] 指针; // 该指针必须指向new出来的数组</p>
+<pre><code class="cpp">int* p = new int[20];
+p[0] = 1;
+delete[] p;
+</code></pre>
+<h3 id="内联函数、函数重载、函数缺省"><a href="#内联函数、函数重载、函数缺省" class="headerlink" title="内联函数、函数重载、函数缺省"></a>内联函数、函数重载、函数缺省</h3><p>函数调用是有时间开销的。如果函数本身只有几条语句，执行非常快，而且函数被反复执行很多次，相比之下调用函数所产生的这个开销就会小显得比较大。<br>为了减少函数调用的开销，引入了内联函数机制。<br>编译器处理对内联函数的调用语句时，是将”整个函数的代码插入到调用语句处”，而不会产生调用函数的语句。</p>
+<p>在函数定义前面加inline关键字，可定义内联函数。</p>
+<p>函数重载：一个或多个函数，名字相同，然而参数个数或参数类型不相同。<br>编译器根据调用语句中实参的个数和类型判断应该调用哪个函数。<br>注意：如果只有返回参数不同，不能叫重载，会报错重定义。</p>
+<p>(1) int Max(double f1, double f2) {}<br>(2) int Max(int n1, int n2){}<br>(3) int Max(int n1, int n2, int n3){}</p>
+<pre><code class="cpp">Max(3.4, 2.5);  // 调用(1)
+Max(2, 4);      // 调用(2)
+Max(1, 2, 3);   // 调用(3)
+Max(3, 2.4);    // 编译错误，二义性
+</code></pre>
+<p>函数的缺省参数：定义函数的时候可以让最右边的连续若干个参数有缺省值，那么调用函数的时候，若相应位置不写参数，参数就是缺省值。</p>
+<pre><code class="cpp">void func(int x1, int x2=2, int x3=3) &#123;&#125;
+func(10);   // 等效于func(10,2,3)
+func(10, 8);// 等效于func(10, 8, 3)
+func(10, ,8); // 编译错误，只能最右边的连续若干个参数缺省
+</code></pre>
+<p>函数参数可缺省的目的在于提高程序的可扩充性。<br>即如果某个写好的函数要添加新的参数，而原先那些调用该函数的语句，未必需要使用新增的参数，那么为了避免对原先那些函数调用语句的修改，就可以使用缺省参数。</p>
+<h3 id><a href="#" class="headerlink" title></a></h3>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 20xx - 2022 Moyan&#39;s blog
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @moyan
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+    </body>
+</html>
